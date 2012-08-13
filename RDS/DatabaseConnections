@@ -1,0 +1,26 @@
+#!/bin/env ruby
+
+require 'rubygems'
+require 'right_aws'
+
+access_key_id     = "#{ARGV[0]}"
+secret_access_key = "#{ARGV[1]}"
+
+ENV["ACW_URL"] = "https://monitoring.ap-northeast-1.amazonaws.com:443/"
+ENV["RDS_URL"] = "https://rds.ap-northeast-1.amazonaws.com:443/"
+
+
+#rds = Rightscale::RdsInterface.new(access_key_id, secret_access_key)
+rds = Rightscale::RdsInterface.new(access_key_id, secret_access_key, :logger => Logger.new('/dev/null'))
+acw = Rightscale::AcwInterface.new(access_key_id, secret_access_key, :logger => Logger.new('/dev/null'))
+
+    options = { :namespace => "AWS/RDS",
+                    :period => 300, 
+		    :statistics => "Average", 
+		    :measure_name => "DatabaseConnections", 
+		    :dimentions => { :DBInstanceIdentifier => "#{ARGV[2]}" } }
+
+    result = acw.get_metric_statistics(options)
+																		    	
+    puts result[:datapoints][0][:average]
+
