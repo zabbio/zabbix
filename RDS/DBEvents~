@@ -25,7 +25,7 @@ instances =  rds.describe_events(options)
 instances.each do |k|
 	s =  k[:date] 
 	p =  k[:message]
-        puts s + ' ' + p
+        puts 's ' + 'p'
 end
 
 #instances.each do |i|

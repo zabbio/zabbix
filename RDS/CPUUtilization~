@@ -14,33 +14,14 @@ ENV["RDS_URL"] = "https://rds.ap-northeast-1.amazonaws.com:443/"
 rds = Rightscale::RdsInterface.new(access_key_id, secret_access_key, :logger => Logger.new('/dev/null'))
 acw = Rightscale::AcwInterface.new(access_key_id, secret_access_key, :logger => Logger.new('/dev/null'))
 
+    options = { :namespace => "AWS/RDS",
+                    :period => 300, 
+		    :statistics => "Average", 
+		    :measure_name => "CPUUtilization", 
+		    :dimentions => { :DBInstanceIdentifier => "#{ARGV[2]}" } }
 
-   options = { :aws_id => "#{ARGV[2]}",
-                    :source_type => "db-instance", 
-		    :duration => "9999" }
+    result = acw.get_metric_statistics(options)
+																		    	
+ #  puts result[:datapoints][0][:average]
+   p result
 
-instances =  rds.describe_events(options)
-
-
-instances.each do |k|
-	s =  k[:date] 
-	p =  k[:message]
-        puts s + ' ' + p
-end
-
-#instances.each do |i|
-#       puts i[:date]
-#       puts i[:message]
-#end
-
-
-
-
-# test = instances[0][:date] 
-# puts test
-
-
-
-# instances.each do |instances|
-# puts instances 
-# end
