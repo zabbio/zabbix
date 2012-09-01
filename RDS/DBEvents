@@ -27,20 +27,3 @@ instances.each do |k|
 	p =  k[:message]
         puts s + ' ' + p
 end
-
-#instances.each do |i|
-#       puts i[:date]
-#       puts i[:message]
-#end
-
-
-
-
-# test = instances[0][:date] 
-# puts test
-
-
-
-# instances.each do |instances|
-# puts instances 
-# end
