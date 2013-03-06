@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'right_aws'
 
-#key info
+#key_info
 access_key_id     = "#{ARGV[0]}"
 secret_access_key = "#{ARGV[1]}"
 
